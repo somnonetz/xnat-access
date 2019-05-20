@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "xnat-access"
+version = "0.1"
+authors = ["Christoph Jansen <Christoph.Jansen@htw-berlin.de>"]
+license = "AGPL-3.0"
+readme = "README.md"
+repository = "https://git.tools.f4.htw-berlin.de/copla/xnat-access"
+homepage = "https://cbmi.htw-berlin.de"
+description = "XNAT Access."
+
+[tool.poetry.dependencies]
+python = "^3.4"
+requests = "^2.21"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
