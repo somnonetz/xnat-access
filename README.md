@@ -26,7 +26,7 @@ scans = xnat.get_result(url)
 print(scans)
 
 # all functions
-# -------------------
+# --------------------
 # xnat.get_request
 # xnat.get_json
 # xnat.get_result
