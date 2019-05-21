@@ -35,4 +35,7 @@ print(scans)
 # xnat.put_request
 # xnat.upload_file
 # xnat.delete_request
+# xnat.open_session
+# xnat.close_session
+# xnat.session_is_open
 ```
