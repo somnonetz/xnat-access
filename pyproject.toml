@@ -4,7 +4,7 @@ version = "0.1"
 authors = ["Christoph Jansen <Christoph.Jansen@htw-berlin.de>"]
 license = "AGPL-3.0"
 readme = "README.md"
-repository = "https://git.tools.f4.htw-berlin.de/copla/xnat-access"
+repository = "https://github.com/somnonetz/xnat-access"
 homepage = "https://cbmi.htw-berlin.de"
 description = "XNAT Access."
 
