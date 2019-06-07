@@ -125,3 +125,13 @@ class XNATClient:
         )
         r.raise_for_status()
         return r
+
+    @session
+    def post(self, path, data=None):
+        r = requests.post(
+            '{}/{}'.format(self._url, path.lstrip('/')),
+            cookies=self._cookies,
+            data=data
+        )
+        r.raise_for_status()
+        return r
