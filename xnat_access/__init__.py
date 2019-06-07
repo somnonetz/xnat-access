@@ -30,6 +30,7 @@ class XNATClient:
         self._password = password
         self._url = xnat_base_url.rstrip('/')
         self._cookies = None
+        self.open_session()
         atexit.register(self.close_session)
 
     def open_session(self):
