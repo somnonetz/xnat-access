@@ -15,7 +15,7 @@ def session(func):
     def wrapper(self, *args, **kwargs):
         try:
             return func(self, *args, **kwargs)
-        except requests.exceptions.HTTPError:
+        except Exception:
             if self.session_is_open():
                 raise
             self.open_session()
@@ -30,7 +30,6 @@ class XNATClient:
         self._password = password
         self._url = xnat_base_url.rstrip('/')
         self._cookies = None
-        self.open_session()
         atexit.register(self.close_session)
 
     def open_session(self):
@@ -65,7 +64,7 @@ class XNATClient:
         )
         try:
             r.raise_for_status()
-        except requests.exceptions.HTTPError:
+        except Exception:
             self._cookies = None
             return False
 
@@ -81,20 +80,24 @@ class XNATClient:
         r.raise_for_status()
         return r
 
+    @session
     def get_file(self, rest_path, encoding=None):
         encoding = encoding if encoding is not None else 'utf-8'
         r = self.get_request(rest_path, stream=True)
         return io.StringIO(r.content.decode(encoding))
 
+    @session
     def get_json(self, rest_path):
         r = self.get_request('{}?format=json'.format(rest_path), stream=False)
         data = r.json()
         return data
 
+    @session
     def get_result(self, rest_path):
         data = self.get_json(rest_path)
         return data['ResultSet']['Result']
 
+    @session
     def download_file(self, rest_path, local_path):
         r = self.get_request(rest_path, stream=True)
 
@@ -113,6 +116,7 @@ class XNATClient:
         r.raise_for_status()
         return r
 
+    @session
     def upload_file(self, rest_path, local_path):
         with open(local_path, 'rb') as f:
             r = self.put_request('{}?inbody=true'.format(rest_path), data=f)
