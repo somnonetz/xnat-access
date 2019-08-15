@@ -5,6 +5,7 @@ from functools import wraps
 import requests
 
 from xnat_access.version import VERSION
+from xnat_access.upload import _create_container_and_upload_file, _create_subject, _create_experiment
 
 
 __version__ = VERSION
@@ -121,6 +122,71 @@ class XNATClient:
         with open(local_path, 'rb') as f:
             r = self.put_request('{}?inbody=true'.format(rest_path), data=f)
         return r
+
+    @session
+    def create_container_and_upload_file(
+        self,
+        local_path,
+        project,
+        subject,
+        experiment,
+        container_type,
+        container,
+        xsi_type,
+        file_name,
+        resource=None
+    ):
+        _create_container_and_upload_file(
+            cookies=self._cookies,
+            url=self._url,
+            local_path=local_path,
+            project=project,
+            subject=subject,
+            experiment=experiment,
+            container_type=container_type,
+            container=container,
+            xsi_type=xsi_type,
+            file_name=file_name,
+            resource=resource
+        )
+
+    @session
+    def create_subject(
+        self,
+        project,
+        subject,
+        group=None,
+        weight=None,
+        height=None,
+        gender=None,
+        yob=None,
+        age=None,
+        handedness=None
+    ):
+        _create_subject(
+            cookies=self._cookies,
+            url=self._url,
+            project=project,
+            subject=subject,
+            group=group,
+            weight=weight,
+            height=height,
+            gender=gender,
+            yob=yob,
+            age=age,
+            handedness=handedness
+        )
+
+    @session
+    def create_experiment(self, project, subject, experiment, xsi_type):
+        _create_experiment(
+            cookies=self._cookies,
+            url=self._url,
+            project=project,
+            subject=subject,
+            experiment=experiment,
+            xsi_type=xsi_type
+        )
 
     @session
     def delete_request(self, rest_path):
